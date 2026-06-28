@@ -334,7 +334,7 @@
       "🇮🇩": "Indonesian", "🇮🇶": "Iraqi Arabic", "🇮🇪": "Irish",
       "🇮🇹": "Italian", "🇯🇵": "Japanese", "🇬🇱": "Kalaallisut",
       "🇰🇷": "Korean", "🇱🇧": "Lebanese Arabic", "🇱🇾": "Libyan Arabic",
-      "🇩🇿": "Maghrebi Dialect", "🇲🇾": "Malay", "🇲🇽": "Mexican Spanish",
+      "🇩🇿": "Maghrebi dialect", "🇲🇾": "Malay", "🇲🇽": "Mexican Spanish",
       "🇳🇴": "Norwegian", "🇮🇷": "Persian", "🇵🇱": "Polish",
       "🇵🇹": "Portuguese", "🇨🇦": "Quebec French", "🇷🇴": "Romanian",
       "🇷🇺": "Russian", "🇷🇸": "Serbian", "🇪🇸": "Spanish",
@@ -468,7 +468,6 @@
       return { sourceLang, result };
     }
 
-    // Gestion de l'affichage dynamique des titres (ERROR ou DONE)
     function setOutput(html, isError = false) {
       const block = document.getElementById("output-block");
       const title = document.getElementById("output-title");
@@ -487,6 +486,7 @@
       }
     }
 
+    // Modification ici pour intégrer le saut de ligne dans le traitement
     function setButtonsState(loading) {
       const cBtn = document.getElementById("confirm-btn");
       const xBtn = document.getElementById("cancel-btn");
@@ -495,7 +495,7 @@
       if (loading) {
         cBtn.disabled = true;
         xBtn.disabled = true;
-        cBtn.innerHTML = '<span class="loader"></span> ⏳ Processing . . .';
+        cBtn.innerHTML = '<span class="loader"></span> ⏳ Processing<br>. . .';
       } else {
         cBtn.disabled = false;
         xBtn.disabled = false;
