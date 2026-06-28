@@ -37,48 +37,52 @@
       margin-top: 6px;
     }
 
-    /* ── API Key banner ── */
-    #key-banner {
+    /* ── Container principal ── */
+    .container {
       width: 100%;
       max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Espace entre chaque bloc */
+    }
+
+    /* ── Style de base de chaque bloc ── */
+    .block {
       background: #18181f;
       border: 1px solid #2a2a35;
-      border-radius: 14px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .block-title {
+      font-size: 0.75rem;
+      color: #6b6b80;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ── Bloc 1 : API Key ── */
+    .key-input-container {
       display: flex;
-      gap: 10px;
       align-items: center;
     }
-    #key-banner input {
-      flex: 1;
+    #api-key {
+      width: 100%;
       background: #1e1e27;
       border: 1.5px solid #2a2a35;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 12px 14px;
       color: #e8e8f0;
       font-size: 0.88rem;
       outline: none;
       transition: border-color 0.15s;
     }
-    #key-banner input:focus { border-color: #a78bfa; }
-    #key-banner label { color: #6b6b80; font-size: 0.82rem; white-space: nowrap; }
+    #api-key:focus { border-color: #a78bfa; }
 
-    /* ── Card ── */
-    .card {
-      width: 100%;
-      max-width: 640px;
-      background: #18181f;
-      border: 1px solid #2a2a35;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-    }
-
-    /* ── Textarea ── */
-    .input-area {
-      padding: 24px 24px 0;
-    }
+    /* ── Bloc 2 : Message Input ── */
     textarea {
       width: 100%;
       background: transparent;
@@ -92,21 +96,18 @@
     }
     textarea::placeholder { color: #3a3a48; }
 
-    .divider { height: 1px; background: #2a2a35; margin: 16px 0; }
-
-    /* ── Back Thought toggle ── */
-    .bt-area { padding: 0 24px 16px; }
+    /* ── Bloc 3 : Back Thought ── */
     #bt-btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 999px;
       border: 1.5px solid #2a2a35;
       background: transparent;
       color: #6b6b80;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 500;
       transition: all 0.15s;
       font-family: inherit;
@@ -117,14 +118,7 @@
       color: #a78bfa;
     }
 
-    /* ── Language grid ── */
-    .lang-area { padding: 0 24px 24px; }
-    .lang-label {
-      font-size: 0.75rem;
-      color: #6b6b80;
-      margin-bottom: 12px;
-      letter-spacing: 0.05em;
-    }
+    /* ── Bloc 4 : Target Languages ── */
     .lang-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -140,26 +134,25 @@
       text-align: center;
       transition: all 0.12s;
       line-height: 1;
-      position: relative;
     }
     .lang-btn:hover { border-color: #3a3a50; background: #22222e; }
     .lang-btn.selected {
       border-color: #60a5fa;
       background: rgba(96,165,250,0.12);
     }
-
     #selected-lang-label {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #60a5fa;
       margin-top: 14px;
       min-height: 1.2em;
+      font-weight: 500;
     }
 
-    /* ── Action Buttons ── */
+    /* ── Bloc 5 : Action Buttons ── */
     .action-area {
-      padding: 0 24px 24px;
       display: flex;
       gap: 12px;
+      padding: 0; /* Aligné sur le padding du bloc */
     }
     .action-btn {
       flex: 1;
@@ -179,14 +172,17 @@
       gap: 6px;
     }
     .action-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    
     #confirm-btn { background: #16a34a; }
     #cancel-btn { background: #dc2626; }
 
-    /* ── Output ── */
-    #output-section { display: none; }
-    #output-section.visible { display: block; }
-    .output-inner { padding: 24px; }
+    /* ── Bloc 6 : Output (Caché au début) ── */
+    #output-block {
+      display: none;
+      border-color: #3a3a50;
+    }
+    #output-block.visible {
+      display: block;
+    }
     .result-main {
       font-size: 1.05rem;
       color: #e8e8f0;
@@ -230,44 +226,47 @@
     <p>Translate or Reveal the Hidden Truth</p>
   </header>
 
-  <!-- API Key input -->
-  <div id="key-banner">
-    <label for="api-key">GEMINI API KEY</label>
-    <input type="password" id="api-key" placeholder="292" autocomplete="off" />
-  </div>
+  <div class="container">
 
-  <!-- Main card -->
-  <div class="card">
-
-    <!-- Text input -->
-    <div class="input-area">
-      <textarea id="text-input" rows="4" placeholder="Provide a Message"></textarea>
+    <!-- BLOC 1: GEMINI API KEY -->
+    <div class="block">
+      <div class="block-title">GEMINI API KEY</div>
+      <div class="key-input-container">
+        <input type="password" id="api-key" placeholder="Enter your API Key here" autocomplete="off" />
+      </div>
     </div>
 
-    <div class="divider"></div>
+    <!-- BLOC 2: PROVIDE A MESSAGE -->
+    <div class="block">
+      <div class="block-title">Provide a Message</div>
+      <textarea id="text-input" rows="4" placeholder="Type or paste your text..."></textarea>
+    </div>
 
-    <!-- Back Thought -->
-    <div class="bt-area">
+    <!-- BLOC 3: BACK THOUGHT -->
+    <div class="block">
+      <div class="block-title">Back Thought Mode</div>
       <button id="bt-btn" onclick="toggleBT()">🔎 Back Thought</button>
     </div>
 
-    <!-- Language grid -->
-    <div class="lang-area">
-      <div class="lang-label">The Target Languages</div>
+    <!-- BLOC 4: THE TARGET LANGUAGES -->
+    <div class="block">
+      <div class="block-title">The Target Languages</div>
       <div class="lang-grid" id="lang-grid"></div>
-      <div id="selected-lang-label"></div>
+      <div id="selected-lang-label"></div> <!-- La langue avec la flèche s'affiche ici -->
     </div>
 
-    <!-- Action Buttons -->
-    <div class="action-area">
-      <button id="confirm-btn" class="action-btn" onclick="handleConfirm()">✅ Confirm</button>
-      <button id="cancel-btn" class="action-btn" onclick="handleCancel()">❌ Cancel</button>
+    <!-- BLOC 5: CONFIRM / CANCEL -->
+    <div class="block" style="background: transparent; border: none; box-shadow: none; padding: 0;">
+      <div class="action-area">
+        <button id="confirm-btn" class="action-btn" onclick="handleConfirm()">✅ Confirm</button>
+        <button id="cancel-btn" class="action-btn" onclick="handleCancel()">❌ Cancel</button>
+      </div>
     </div>
 
-    <!-- Output -->
-    <div id="output-section">
-      <div class="divider"></div>
-      <div class="output-inner" id="output-inner"></div>
+    <!-- BLOC 6: OUTPUT & ERRORS (Absent au début) -->
+    <div class="block" id="output-block">
+      <div class="block-title" id="output-title">Response</div>
+      <div id="output-inner"></div>
     </div>
 
   </div>
@@ -400,12 +399,21 @@
       return { sourceLang, result };
     }
 
-    function setOutput(html) {
-      const section = document.getElementById("output-section");
+    function setOutput(html, isError = false) {
+      const block = document.getElementById("output-block");
+      const title = document.getElementById("output-title");
       const inner = document.getElementById("output-inner");
-      if (inner && section) {
+      if (inner && block && title) {
+        title.textContent = isError ? "Error" : "Response";
         inner.innerHTML = html;
-        section.classList.add("visible");
+        block.classList.add("visible");
+      }
+    }
+
+    function hideOutput() {
+      const block = document.getElementById("output-block");
+      if (block) {
+        block.classList.remove("visible");
       }
     }
 
@@ -426,32 +434,31 @@
     }
 
     function handleCancel() {
-      // 1. Affichage immédiat du message d'annulation
+      // 1. Affiche momentanément le statut d'annulation dans le bloc 6
       setOutput(`<p class="result-main">❌ Cancelled</p>`);
 
-      // 2. Remise à zéro complète après 1.5 seconde
+      // 2. Attend 1.2s puis efface tout et fait disparaître le bloc 6
       setTimeout(() => {
-        // Vide les champs de texte
+        // Reset inputs
         const apiKeyEl = document.getElementById("api-key");
         const inputEl = document.getElementById("text-input");
         if (apiKeyEl) apiKeyEl.value = "";
         if (inputEl) inputEl.value = "";
 
-        // Réinitialise la langue sélectionnée et son affichage graphique
+        // Reset languages
         selectedLang = null;
         document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("selected"));
         const label = document.getElementById("selected-lang-label");
         if (label) label.textContent = "";
 
-        // Réinitialise le mode Back Thought
+        // Reset Back Thought
         backThought = false;
         const btBtn = document.getElementById("bt-btn");
         if (btBtn) btBtn.classList.remove("active");
 
-        // Cache la section des résultats pour retrouver la page vide initiale
-        const section = document.getElementById("output-section");
-        if (section) section.classList.remove("visible");
-      }, 1500); 
+        // Fait complètement disparaître le bloc 6
+        hideOutput();
+      }, 1200); 
     }
 
     async function handleConfirm() {
@@ -462,11 +469,11 @@
       const text = inputEl ? inputEl.value.trim() : "";
       const hasAction = selectedLang || backThought;
 
-      // --- Système de Validation sur mesure ---
+      // --- Validation ---
       let missing = [];
       if (!apiKey) missing.push("Provide your GEMINI API KEY");
       if (!text) missing.push("Provide a Message");
-      if (!hasAction) missing.push("Transled or Reveal the Hidden Truth");
+      if (!hasAction) missing.push("Translate or Reveal the Hidden Truth");
 
       if (missing.length > 0) {
         let errorMsg = "❌ Please,\n";
@@ -477,11 +484,11 @@
         } else if (missing.length === 3) {
           errorMsg += `${missing[0]},\n${missing[1]},\nand ${missing[2]}`;
         }
-        setOutput(`<p class="error-msg">${errorMsg}</p>`);
+        setOutput(`<p class="error-msg">${errorMsg}</p>`, true);
         return;
       }
 
-      // --- Lancement de l'API si tout est OK ---
+      // --- Lancement API ---
       setButtonsState(true);
 
       try {
@@ -489,13 +496,13 @@
 
         if (backThought && !selectedLang) {
           const { sourceLang, result } = await callGemini(text, null, "truth", apiKey);
-          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`); return; }
+          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`, true); return; }
           setOutput(`<p class="result-main">${result}</p>`);
         }
 
         else if (!backThought && selectedLang) {
           const { sourceLang, result } = await callGemini(text, targetLang, "translate", apiKey);
-          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`); return; }
+          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`, true); return; }
           const emoji = LANG_TO_EMOJI[sourceLang] ?? "🏳️";
           if (sourceLang === targetLang) {
             setOutput(`<p class="result-muted">${emoji} Already in ${sourceLang}.</p>`);
@@ -506,7 +513,7 @@
 
         else if (backThought && selectedLang) {
           const { sourceLang, result: truthText } = await callGemini(text, null, "truth", apiKey);
-          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`); return; }
+          if (!sourceLang) { setOutput(`<p class="error-msg">❌ Language Not Supported</p>`, true); return; }
           const emoji = LANG_TO_EMOJI[sourceLang] ?? "🏳️";
 
           if (sourceLang === targetLang) {
@@ -521,7 +528,7 @@
         }
 
       } catch (e) {
-        setOutput(`<p class="error-msg">❌ ${e.message}</p>`);
+        setOutput(`<p class="error-msg">❌ ${e.message}</p>`, true);
       } finally {
         setButtonsState(false);
       }
