@@ -690,11 +690,11 @@
         }
       } catch (e) {
         if (e.message === "QUOTA_ERROR") {
-          setOutput(`<p class="error-msg">⚠️ Please, your Plan Limit has been Reached</p>`, true);
+          setOutput(`<p class="error-msg">⚠️\nYour Plan Limit has been Reached</p>`, true);
         } else if (e.message === "API_KEY_ERROR") {
-          setOutput(`<p class="error-msg">⚠️ Please, Check you GEMINI API KEY</p>`, true);
+          setOutput(`<p class="error-msg">⚠️\nPlease,\nCheck you GEMINI API KEY</p>`, true);
         } else {
-          setOutput(`<p class="error-msg">⚠️ Please, Try Again</p>`, true);
+          setOutput(`<p class="error-msg">⚠️\nPlease,\nTry Again</p>`, true);
         }
       } finally {
         setButtonsState(false);
