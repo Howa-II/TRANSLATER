@@ -646,7 +646,7 @@
           }
         }
       } catch (e) {
-        setOutput(e.isGeminiCrash ? `<p class="error-msg">⚠️ Gemini API Error. Please check your Key or try again.</p>` : `<p class="error-msg">❌ ${e.message}</p>`, true);
+        setOutput(e.isGeminiCrash ? `<p class="error-msg">⚠️ Please, Try Again </p>` : `<p class="error-msg">❌ ${e.message}</p>`, true);
       } finally {
         setButtonsState(false);
       }
